@@ -19,14 +19,284 @@ x
 ```
 
 ```{r}
+# Crear una matriz vacía de 2x3
+
 m<- matrix(nrow = 2, ncol = 3)
 
 m
 
+# devolverá el atributo de dimensión
 dim(m)
+
+# devuelve una lista en la cual el primer elemento es el elemento "dim", que contiene el vector 2, 3, que es el número de filas y el número de columnas
 
 attributes(m)
 
 ```
+
+```{r}
+# Crear una matriz a partir de un vector
+# Creamos un vector con los números del 1 al 20
+datos<- 1:20
+#Le damos forma de matriz de 4x5 
+dim(datos) <-c(4,5)
+datos
+```
+```{r}
+# Crear un matriz concatenando columnas o filas "cbind" y "rbind"
+
+x <- 1:5
+y <- 11:15
+
+matriz <- cbind(x,y)
+matriz
+
+
+matriz2 <- rbind(x,y)
+matriz2
+
+```
+
+
+Veamos que se puede hacer con Factores
+```{r}
+# Asignamos un factor de caracter a x
+x <- factor(c("yes", "yes", "no", "yes", "no"))
+x
+
+print ("Ver el segundo")
+# Le pedimos que nos muestre cuantas unidades hay de cada una
+table(x)
+x
+print ("Ver què hace unclass")
+#Le quita el caracter al factor
+unclass(x)
+
+print ("Vamos por el cuarto")
+# Asignamos un factor de caracter a x
+x <- factor(c("yes", "yes", "no", "yes", "no"), levels = c ("yes", "no"))
+x
+
+
+```
+
+
+
+ 
+19 Connections: Interfaces to the Outside World (Video 15)
+
+```{r}
+con <- url("http://www.elpais.es", "r")
+x <- readLines(con, 10)
+x
+
+
+```
+
+
+Extrayendo Subconjuntos de Listas (subsetting)
+
+```{r}
+x <- list(foo = 1:4, bar = 0.6, baz = "hello")
+
+suputamadre <- "foo"
+
+x[[suputamadre]]
+
+x$suputamadre
+
+x$foo
+
+
+
+```
+
+Extrayendo Subconjuntos de Matrices (subsetting)
+
+```{r}
+x <- matrix(1:6, 2, 3)
+x
+
+x [1, , drop = FALSE] 
+
+```
+
+Eliminando valores NA
+
+```{r}
+
+x <- c(1, 2, NA, 4, NA, 5)
+
+bad <- is.na(x)
+
+bad
+
+x[!bad]
+
+
+```
+Eliminando valores NA con la funciòn complete.cases
+
+```{r}
+
+x <- c( 1,   NA,  NA,  4,  NA,  5  )
+y <- c("a", "b", NA, "d", NA, "f")
+
+good <- complete.cases(x, y)
+good
+
+x[good]
+y[good]  
+
+
+```
+
+Operaciones con matrices
+
+```{r}
+
+x <-matrix(1:4, 2, 2)
+y <- c(10,2)
+
+x
+y
+
+x%*%y
+
+
+```
+
+```{r}
+# Función cbind, que crea una matriz a base de unir vectores
+x <- c(1,3,5)
+y <- c(3,2,10)
+cbind(x,y)
+
+```
+```{r}
+# Tipo de lista
+x <- list(2, "a", "b", TRUE)
+x[[1]]
+class(x)
+
+
+```
+
+```{r}
+
+x <- c(1:4)
+y <- c(2:3)
+
+x
+y
+x+y
+class(x+y)
+
+
+
+```
+```{r}
+
+x <- c(17, 14, 4, 5, 13, 12, 10)
+
+x[x>10] <-4
+x
+
+
+```
+
+
+
+Ejercicios Semana 1
+
+
+
+```{r}
+
+#leemos el fichero
+
+datos <- read.csv(file="hw1_data.csv", head=TRUE)
+
+# Sacamos por consola el dataframe
+datos
+
+#Que nos diga el número de filas
+nrow(datos)
+
+
+# Extraemos las dos primeras filas
+
+datos[1:2, ]
+
+# Extraemos las dos últimas filas
+penultima <- nrow(datos)-1
+ultima <- penultima +1
+penultima
+ultima
+
+
+datos[penultima:ultima, ]
+
+
+# Extraemos de la fila 47 el valor de la columna 1
+
+datos$Ozone[47]
+
+# Buscar cuantos son los valores perdidos en la columna Ozono
+
+valores_perdidos <- is.na(datos$Ozone)
+valores_perdidos <- sum(valores_perdidos == TRUE)
+
+valores_perdidos
+
+# Buscar la media del Ozono sin tener en cuenta los valores perdidos en la columna Ozono
+
+mean(datos$Ozone, na.rm=TRUE)
+
+# Extraer las lineas con Ozono mayor a 31 y Temp por encima de 90. Y calcular la media de Solar.R en este subconjunto
+
+
+subconjunto <- datos[which(datos$Ozone >31 & datos$Temp >90),]
+subconjunto
+           
+mean(subconjunto$Solar.R)     
+
+# Extraer las lineas con mes igual a 6, y calcular la media de la columna "Temp" en este subconjunto
+
+subconjunto <- datos[which(datos$Month == 6),]
+subconjunto
+
+mean(subconjunto$Temp)
+
+# Cual es el máximo valor que alcanza el Ozono en el mes de mayo (mes 5)
+
+subconjunto <- datos[which(datos$Month == 5),]
+subconjunto
+
+max(subconjunto$Ozone, na.rm = TRUE)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
